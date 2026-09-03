@@ -423,8 +423,8 @@
 .photo-seeds { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .photo-seed {
   position: absolute;
-  width: 46rpx;
-  height: 58rpx;
+  width: 56rpx;
+  height: 68rpx;
   opacity: 0;
   transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58);
 }
@@ -458,31 +458,31 @@
 
 @keyframes photoSeedFly0 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .96; }
+  10%, 68% { opacity: .98; }
   100% { opacity: 0; transform: translate3d(120rpx, -96rpx, 0) rotate(24deg) scale(.48); }
 }
 @keyframes photoSeedFly1 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .94; }
+  10%, 68% { opacity: .96; }
   100% { opacity: 0; transform: translate3d(168rpx, -68rpx, 0) rotate(28deg) scale(.42); }
 }
 @keyframes photoSeedFly2 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .92; }
+  10%, 68% { opacity: .94; }
   100% { opacity: 0; transform: translate3d(218rpx, -122rpx, 0) rotate(30deg) scale(.36); }
 }
 @keyframes photoSeedFly3 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .9; }
+  10%, 68% { opacity: .92; }
   100% { opacity: 0; transform: translate3d(270rpx, -62rpx, 0) rotate(34deg) scale(.3); }
 }
 @keyframes photoSeedFly4 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .94; }
+  10%, 68% { opacity: .96; }
   100% { opacity: 0; transform: translate3d(100rpx, -145rpx, 0) rotate(22deg) scale(.39); }
 }
 @keyframes photoSeedFly5 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10% { opacity: .9; }
+  10%, 68% { opacity: .92; }
   100% { opacity: 0; transform: translate3d(150rpx, -176rpx, 0) rotate(36deg) scale(.31); }
 }
