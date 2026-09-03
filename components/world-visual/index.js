@@ -18,6 +18,21 @@ function createFallbackSeeds(count) {
   }));
 }
 
+function createPhotoSeeds() {
+  const points = [
+    { x: 58, y: 25, dx: 120, dy: -96, scale: .48, delay: 0 },
+    { x: 69, y: 30, dx: 168, dy: -68, scale: .42, delay: .12 },
+    { x: 77, y: 21, dx: 218, dy: -122, scale: .36, delay: .24 },
+    { x: 84, y: 35, dx: 270, dy: -62, scale: .3, delay: .38 },
+    { x: 53, y: 34, dx: 100, dy: -145, scale: .39, delay: .5 },
+    { x: 64, y: 18, dx: 150, dy: -176, scale: .31, delay: .62 }
+  ];
+  return points.map((point, id) => ({
+    id,
+    style: `--seed-x:${point.dx}rpx;--seed-y:${point.dy}rpx;--seed-scale:${point.scale};animation-delay:${point.delay}s;left:${point.x}%;top:${point.y}%;`
+  }));
+}
+
 Component({
   properties: {
     world: { type: String, value: 'dandelion' },
@@ -38,21 +53,16 @@ Component({
     partPosition: { x: 50, y: 44 },
     useCanvas: false,
     fallbackFilaments: createFallbackFilaments(72),
-    fallbackSeeds: createFallbackSeeds(18)
+    fallbackSeeds: createFallbackSeeds(18),
+    photoSeeds: createPhotoSeeds()
   },
 
   lifetimes: {
     ready() {
-      let platform = '';
-      try {
-        const device = wx.getDeviceInfo ? wx.getDeviceInfo() : {};
-        const system = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
-        platform = String(device.platform || system.platform || '').toLowerCase();
-      } catch (error) {}
-      const useCanvas = platform === 'ios' || platform === 'android' || platform === 'harmonyos';
-      this.setData({ useCanvas }, () => {
-        if (useCanvas) this.initDandelionCanvas();
-      });
+      // The reference design uses a photographic asset for the flower. Keep the
+      // canvas renderer available for experimentation, but use the asset layer
+      // in the shipped experience so the fine backlit filaments remain intact.
+      this.setData({ useCanvas: false });
     },
     detached() { this.stopDandelionCanvas(); }
   },

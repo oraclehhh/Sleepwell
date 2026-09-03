@@ -12,8 +12,16 @@
 
   <block wx:if="{{world === 'dandelion'}}">
     <view class="dandelion">
+      <view class="dandelion-photo-layer" aria-label="随呼吸轻轻飘动的蒲公英">
+        <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
+        <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
+        <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse.png" mode="aspectFit"></image>
+        <view wx:if="{{phase === 'exhale' || phase === 'completed'}}" class="photo-seeds">
+          <image wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}}" src="/assets/dandelion/seed.png" mode="aspectFit" style="{{item.style}}"></image>
+        </view>
+      </view>
       <canvas wx:if="{{useCanvas}}" type="2d" id="dandelionCanvas" class="dandelion-canvas"></canvas>
-      <view wx:else class="dandelion-fallback" aria-label="随呼吸轻轻飘动的蒲公英">
+      <view wx:if="{{!useCanvas}}" class="dandelion-fallback photo-fallback" aria-hidden="true">
         <view class="fallback-glow"></view>
         <view class="fallback-stem"></view>
         <view class="fallback-head">

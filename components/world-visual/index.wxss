@@ -390,3 +390,39 @@
 @keyframes fallbackSeedFly1 { 0% { opacity: 0; transform: translate(0, 0) rotate(0deg); } 12% { opacity: 0.82; } 100% { opacity: 0; transform: translate(180rpx, -175rpx) rotate(34deg); } }
 @keyframes fallbackSeedFly2 { 0% { opacity: 0; transform: translate(0, 0) rotate(0deg); } 12% { opacity: 0.82; } 100% { opacity: 0; transform: translate(235rpx, -135rpx) rotate(22deg); } }
 @keyframes fallbackSeedFly3 { 0% { opacity: 0; transform: translate(0, 0) rotate(0deg); } 12% { opacity: 0.82; } 100% { opacity: 0; transform: translate(290rpx, -220rpx) rotate(38deg); } }
+
+/* Warm-gold reference treatment: the source photograph carries the fine
+   filaments and dark receptacle that are lost in a pure CSS illustration. */
+.world--dandelion .photo-fallback { display: none; }
+.dandelion-photo-layer { position: absolute; inset: 0; overflow: visible; }
+.dandelion-photo {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  width: 530rpx;
+  height: 650rpx;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.98);
+  filter: brightness(.92) saturate(.86) sepia(.1);
+  transition: opacity 1100ms ease, transform 4s cubic-bezier(.2,.72,.2,1), filter 4s ease;
+  pointer-events: none;
+}
+.world--dandelion .dandelion-photo--full { opacity: .98; }
+.world--dandelion .dandelion-photo--loosened { opacity: 0; }
+.world--dandelion .dandelion-photo--sparse { opacity: 0; }
+.world--dandelion.phase--inhale .dandelion-photo--full { opacity: 1; transform: translate(-50%, -50%) scale(1.045); filter: brightness(1.08) saturate(.92) sepia(.1); }
+.world--dandelion.phase--hold .dandelion-photo--full { opacity: 0; }
+.world--dandelion.phase--hold .dandelion-photo--loosened { opacity: 1; transform: translate(-50%, -50%) scale(1.045); filter: brightness(1.04) saturate(.9) sepia(.12); }
+.world--dandelion.phase--exhale .dandelion-photo--full { opacity: 0; }
+.world--dandelion.phase--exhale .dandelion-photo--loosened { opacity: .62; transform: translate(-50%, -50%) scale(1.01) rotate(1deg); filter: brightness(.96) saturate(.82) sepia(.16); }
+.world--dandelion.phase--exhale .dandelion-photo--sparse { opacity: .86; transform: translate(-50%, -50%) scale(1.01) rotate(1deg); filter: brightness(.96) saturate(.82) sepia(.16); }
+.world--dandelion.phase--completed .dandelion-photo--full,
+.world--dandelion.phase--completed .dandelion-photo--loosened { opacity: 0; }
+.world--dandelion.phase--completed .dandelion-photo--sparse { opacity: .74; transform: translate(-50%, -50%) scale(.99); filter: brightness(.9) saturate(.76) sepia(.18); }
+.photo-seeds { position: absolute; inset: 0; pointer-events: none; }
+.photo-seed { position: absolute; width: 46rpx; height: 58rpx; opacity: 0; transform: rotate(-16deg) scale(.58); animation: photoSeedFly 3.2s cubic-bezier(.2,.62,.18,1) both; }
+@keyframes photoSeedFly {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
+  12% { opacity: .92; }
+  100% { opacity: 0; transform: translate3d(var(--seed-x), var(--seed-y), 0) rotate(24deg) scale(var(--seed-scale)); }
+}

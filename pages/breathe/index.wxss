@@ -1,6 +1,11 @@
 .breathe-page {
   height: 100vh;
-  --world-accent: #d8e8cf;
+  --world-accent: #f6d8ab;
+  --bg-deep: #080807;
+  --bg-mid: #17130f;
+  --text-main: #f6d8ab;
+  --text-soft: #e7d8c5;
+  --text-faint: rgba(246,216,171,.5);
   transition: background-color 800ms ease;
 }
 
@@ -22,9 +27,11 @@
 }
 
 .breathe-page .topbar { display: block; }
-.breathe-page .topbar .icon-button--exit { position: absolute; left: 32rpx; bottom: 8px; }
-.breathe-page .topbar .icon-button--wide { position: absolute; left: 50%; bottom: 8px; width: 128rpx; min-width: 128rpx; margin-left: 0; transform: translateX(-50%); }
-.breathe-page .topbar .topbar-settings { position: absolute; left: 128rpx; bottom: 8px; width: 80rpx; min-width: 80rpx; margin-left: 0; }
+.breathe-page .topbar .icon-button--back { position: absolute; left: 32rpx; bottom: 8px; background: transparent; }
+.breathe-page .topbar .topbar-settings { position: absolute; right: 32rpx; bottom: 8px; width: 80rpx; min-width: 80rpx; margin-left: 0; background: transparent; }
+.breathe-page .topbar-label { position: absolute; left: 50%; bottom: 21px; transform: translateX(-50%); color: var(--text-main); font-size: 34rpx; font-weight: 600; white-space: nowrap; }
+.settings-ring { position: relative; width: 36rpx; height: 36rpx; border: 3rpx solid var(--text-main); border-radius: 50%; }
+.settings-dot { position: absolute; left: 50%; top: 50%; width: 12rpx; height: 12rpx; border: 3rpx solid var(--text-main); border-radius: 50%; transform: translate(-50%, -50%); }
 
 .sliders-icon {
   display: flex;
@@ -77,7 +84,7 @@
   position: absolute;
   z-index: 2;
   right: 0;
-  bottom: calc(env(safe-area-inset-bottom) + 154rpx);
+  bottom: calc(env(safe-area-inset-bottom) + 120rpx);
   left: 0;
 }
 
@@ -100,7 +107,7 @@
   position: absolute;
   z-index: 32;
   left: 50%;
-  top: 73%;
+  top: 84%;
   width: 166rpx;
   height: 166rpx;
   transform: translate(-50%, -50%) scale(1);
@@ -128,7 +135,7 @@
 .cycle-dots {
   position: absolute;
   z-index: 15;
-  bottom: calc(env(safe-area-inset-bottom) + 146rpx);
+  bottom: calc(env(safe-area-inset-bottom) + 44rpx);
   left: 50%;
   display: flex;
   align-items: center;
@@ -150,11 +157,14 @@
   left: 0;
   display: flex;
   align-items: end;
-  min-height: 132rpx;
-  padding-right: 54rpx;
-  padding-left: 54rpx;
-  background: linear-gradient(180deg, transparent, rgba(3, 15, 16, 0.74) 46%);
+  min-height: 146rpx;
+  padding-right: 0;
+  padding-left: 0;
+  justify-content: center;
+  background: linear-gradient(180deg, transparent, rgba(8, 8, 7, 0.92) 46%);
 }
+
+.bottom-caption { color: var(--text-soft); font-size: 25rpx; }
 
 .nav-item {
   display: flex;
@@ -167,6 +177,8 @@
   font-size: 21rpx;
   flex: 1;
 }
+
+.breathe-page .bottom-nav .nav-item { display: none; }
 
 .nav-item--world { color: var(--text-soft); }
 .nav-icon { width: 34rpx; height: 34rpx; }
@@ -264,3 +276,45 @@
   .world-sheet { min-height: 620rpx; }
   .world-wheel { height: 430rpx; }
 }
+
+/* ===== Breathing aura enhancement (revert-safe) ===== */
+.breath-orb { width: 400rpx; height: 400rpx; }
+.breath-orb__halo--outer { width: 420rpx; height: 420rpx; opacity: .2; box-shadow: 0 0 150rpx rgba(206,164,100,.34); }
+.breath-orb__halo--inner { width: 340rpx; height: 340rpx; opacity: .34; background: rgba(217,181,124,.15); }
+.breath-orb__shell { width: 380rpx; height: 380rpx; border-color: rgba(238,211,166,.5); background: rgba(145,103,58,.08); box-shadow: 0 0 90rpx rgba(219,177,109,.3); }
+.breath-orb__core { background: transparent; box-shadow: none; }
+.breath-orb--inhale { transform: translate(-50%, -50%) scale(1.06); }
+.breath-orb--hold { transform: translate(-50%, -50%) scale(1.06); }
+.breath-orb--exhale { transform: translate(-50%, -50%) scale(.92); }
+.breath-orb--inhale .breath-orb__halo--outer { width: 470rpx; height: 470rpx; opacity: .4; }
+.breath-orb--inhale .breath-orb__halo--inner { width: 370rpx; height: 370rpx; opacity: .5; }
+.breath-orb--hold .breath-orb__halo--outer { width: 470rpx; height: 470rpx; opacity: .38; }
+.breath-orb--hold .breath-orb__halo--inner { width: 370rpx; height: 370rpx; opacity: .48; }
+.breath-orb--exhale .breath-orb__halo { opacity: .08; }
+.breath-orb--exhale .breath-orb__core { opacity: 0; }
+
+/* Match the supplied 390 x 844 reference: one quiet, warm-dark stage. */
+.breathe-page.page-shell,
+.breathe-page.world-bg--dandelion { background: radial-gradient(circle at 50% 43%, rgba(115, 75, 38, .26), transparent 34%), linear-gradient(180deg, #17130f 0%, #0b0a09 56%, #080807 100%); }
+.breathe-page .breath-stage { top: 0 !important; bottom: calc(env(safe-area-inset-bottom) + 120rpx) !important; }
+.breathe-page .prompt-block { top: 108px !important; }
+.breathe-page .cycle-dots,
+.breathe-page .stop-breath { display: none; }
+.breathe-page .bottom-caption { position: absolute; right: 0; bottom: 214px; left: 0; display: block; text-align: center; }
+.breathe-page .bottom-nav { pointer-events: none; }
+.breathe-page .breath-orb { top: 92%; width: 336rpx; height: 336rpx; }
+.breathe-page .breath-orb__halo--outer { width: 336rpx; height: 336rpx; opacity: .2; box-shadow: 0 0 112rpx rgba(206,164,100,.28); }
+.breathe-page .breath-orb__halo--inner { width: 268rpx; height: 268rpx; opacity: .34; }
+.breathe-page .breath-orb__shell { width: 176rpx; height: 176rpx; border-color: rgba(238,211,166,.52); background: rgba(145,103,58,.44); box-shadow: 0 0 48rpx rgba(219,177,109,.25); }
+.breathe-page .breath-orb__core { width: 108rpx; height: 108rpx; background: linear-gradient(145deg, #f7d6a5 6%, #d1a46f 94%); box-shadow: 0 0 30rpx rgba(245,211,158,.34); }
+.breathe-page .breath-orb--inhale .breath-orb__halo--outer,
+.breathe-page .breath-orb--hold .breath-orb__halo--outer { width: 390rpx; height: 390rpx; }
+.breathe-page .breath-orb--inhale .breath-orb__halo--inner,
+.breathe-page .breath-orb--hold .breath-orb__halo--inner { width: 300rpx; height: 300rpx; }
+.breathe-page .breath-orb--inhale .breath-orb__shell,
+.breathe-page .breath-orb--hold .breath-orb__shell { width: 196rpx; height: 196rpx; }
+.breathe-page .breath-orb--inhale .breath-orb__core,
+.breathe-page .breath-orb--hold .breath-orb__core { width: 120rpx; height: 120rpx; }
+.breathe-page .breath-orb--exhale { transform: translate(-50%, -50%) scale(.92); }
+.breathe-page .topbar .icon-button--back { color: var(--text-main); }
+.breathe-page .topbar .icon-button--back .back-arrow { width: 18rpx; height: 18rpx; }
