@@ -395,65 +395,78 @@
    filaments and dark receptacle that are lost in a pure CSS illustration. */
 .world--dandelion .photo-fallback { display: none; }
 .world--dandelion .dandelion { left: 0; top: 0; width: 100%; height: 100%; transform: none; }
-.dandelion-photo-layer { position: absolute; z-index: 5; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.dandelion-photo-position {
+.dandelion-photo-layer { position: absolute; z-index: 5; left: 0; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; overflow: visible; }
+.dandelion-stem-static {
   position: absolute;
+  z-index: 1;
   left: 50%;
   top: 43%;
-  width: 530rpx;
+  width: 520rpx;
   height: 650rpx;
   transform: translate(-50%, -50%);
+  animation: none !important;
+  pointer-events: none;
+}
+.dandelion-crown-anchor {
+  position: absolute;
+  left: calc(50% + 28.36rpx);
+  top: calc(43% - 57.91rpx);
+  width: 0;
+  height: 0;
   overflow: visible;
   pointer-events: none;
 }
-.dandelion-photo-motion {
+.dandelion-crown-motion {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-origin: 50% 96%;
+  left: -288.36rpx;
+  top: -267.09rpx;
+  width: 520rpx;
+  height: 650rpx;
+  transform-origin: 55.45% 41.09%;
   pointer-events: none;
 }
-.dandelion-photo {
+.dandelion-crown {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  filter: brightness(.92) saturate(.86) sepia(.1);
-  transition: opacity 1100ms ease, filter 4s ease;
+  transition: opacity 420ms ease;
   pointer-events: none;
 }
-.world--dandelion .dandelion-photo--full { opacity: .98; }
-.world--dandelion .dandelion-photo--loosened { opacity: 0; }
-.world--dandelion .dandelion-photo--sparse { opacity: 0; }
-.world--dandelion.phase--inhale .dandelion-photo--full {
+.world--dandelion .dandelion-stem-static { opacity: .98; }
+.world--dandelion .dandelion-crown--full { opacity: .98; }
+.world--dandelion .dandelion-crown--loosened { opacity: 0; }
+.world--dandelion .dandelion-crown--sparse { opacity: 0; }
+.world--dandelion.phase--inhale .dandelion-crown--full {
   opacity: 1;
-  filter: brightness(1.08) saturate(.92) sepia(.1);
 }
-.world--dandelion.phase--hold .dandelion-photo--full { opacity: 0; }
-.world--dandelion.phase--hold .dandelion-photo--loosened { opacity: 1; filter: brightness(1.04) saturate(.9) sepia(.12); }
-.world--dandelion.phase--exhale .dandelion-photo--full { opacity: 0; }
-.world--dandelion.phase--exhale .dandelion-photo--loosened { opacity: .62; filter: brightness(.96) saturate(.82) sepia(.16); }
-.world--dandelion.phase--exhale .dandelion-photo--sparse { opacity: .86; filter: brightness(.96) saturate(.82) sepia(.16); }
-.world--dandelion.phase--completed .dandelion-photo--full,
-.world--dandelion.phase--completed .dandelion-photo--loosened { opacity: 0; }
-.world--dandelion.phase--completed .dandelion-photo--sparse { opacity: .74; filter: brightness(.9) saturate(.76) sepia(.18); }
-.world--dandelion.phase--inhale .dandelion-photo-motion {
-  animation: dandelionFerrisRotate 4s linear both;
+.world--dandelion.phase--hold .dandelion-crown--full { opacity: 0; }
+.world--dandelion.phase--hold .dandelion-crown--loosened { opacity: 1; }
+.world--dandelion.phase--exhale .dandelion-crown--full { opacity: 0; }
+.world--dandelion.phase--exhale .dandelion-crown--loosened { opacity: .18; }
+.world--dandelion.phase--exhale .dandelion-crown--sparse { opacity: .82; }
+.world--dandelion.phase--completed .dandelion-crown--full,
+.world--dandelion.phase--completed .dandelion-crown--loosened { opacity: 0; }
+.world--dandelion.phase--completed .dandelion-crown--sparse { opacity: .74; }
+.world--dandelion.phase--inhale .dandelion-crown-motion {
+  animation: crownFerrisRotate 4s linear both;
 }
-.world--dandelion.phase--hold .dandelion-photo-motion {
-  animation: dandelionHoldSwayVisible 1.6s ease-in-out infinite alternate;
+.world--dandelion.phase--hold .dandelion-crown-motion {
+  animation: crownHoldSway 1.8s ease-in-out infinite;
 }
-.world--dandelion.phase--exhale .dandelion-photo-motion,
-.world--dandelion.phase--completed .dandelion-photo-motion {
+.world--dandelion.phase--exhale .dandelion-crown-motion {
+  animation: crownExhaleRotate 7.6s linear both;
+}
+.world--dandelion.phase--completed .dandelion-crown-motion {
   animation: none;
 }
 .photo-seeds {
   position: absolute;
   z-index: 2;
-  left: 50%;
-  top: 43%;
+  left: calc(50% + 28.36rpx);
+  top: calc(43% - 57.91rpx);
   width: 0;
   height: 0;
   overflow: visible;
@@ -469,37 +482,79 @@
   animation-play-state: running;
 }
 .photo-seed-image { display: block; width: 100%; height: 100%; }
-.photo-seed--near { width: 64rpx; height: 78rpx; filter: brightness(1.18) saturate(1.08) drop-shadow(0 0 9rpx rgba(255, 205, 131, .46)); }
-.photo-seed--mid { width: 52rpx; height: 64rpx; filter: brightness(1.04) saturate(.94) drop-shadow(0 0 6rpx rgba(255, 193, 112, .3)); }
-.photo-seed--far { width: 40rpx; height: 50rpx; filter: brightness(.82) saturate(.78) drop-shadow(0 0 4rpx rgba(255, 183, 99, .2)); }
-.photo-seed--mid .photo-seed-image { opacity: .82; }
-.photo-seed--far .photo-seed-image { opacity: .55; }
-.photo-seed--0 { left: 120rpx; top: -190rpx; }
-.photo-seed--1 { left: 154rpx; top: -140rpx; }
-.photo-seed--2 { left: 184rpx; top: -62rpx; }
-.photo-seed--3 { left: 170rpx; top: 28rpx; }
-.photo-seed--4 { left: 86rpx; top: -204rpx; }
-.photo-seed--5 { left: -18rpx; top: -196rpx; }
-.photo-seed--6 { left: -116rpx; top: -174rpx; }
-.photo-seed--7 { left: -188rpx; top: -116rpx; }
-.photo-seed--8 { left: -214rpx; top: -20rpx; }
-.photo-seed--9 { left: -44rpx; top: -230rpx; }
-.photo-seed--10 { left: 138rpx; top: -176rpx; }
-.photo-seed--11 { left: 196rpx; top: -30rpx; }
-.photo-seed--12 { left: 176rpx; top: 58rpx; }
-.photo-seed--13 { left: 54rpx; top: -220rpx; }
-.photo-seed--14 { left: -2rpx; top: -238rpx; }
-.photo-seed--15 { left: -92rpx; top: -204rpx; }
-.photo-seed--16 { left: -166rpx; top: -126rpx; }
-.photo-seed--17 { left: -208rpx; top: 12rpx; }
-.photo-seed--18 { left: -132rpx; top: -178rpx; }
-.photo-seed--19 { left: -72rpx; top: -218rpx; }
+.photo-seed--near { width: 64rpx; height: 78rpx; }
+.photo-seed--mid { width: 52rpx; height: 64rpx; }
+.photo-seed--far { width: 40rpx; height: 50rpx; }
+.photo-seed--near .photo-seed-image { opacity: .96; }
+.photo-seed--mid .photo-seed-image { opacity: .78; }
+.photo-seed--far .photo-seed-image { opacity: .48; }
+.photo-seed--0 { left: 165rpx; top: 51rpx; }
+.photo-seed--1 { left: -164rpx; top: 72rpx; }
+.photo-seed--2 { left: 73rpx; top: -166rpx; }
+.photo-seed--3 { left: 64rpx; top: 176rpx; }
+.photo-seed--4 { left: -175rpx; top: -91rpx; }
+.photo-seed--5 { left: 198rpx; top: -41rpx; }
+.photo-seed--6 { left: -115rpx; top: 145rpx; }
+.photo-seed--7 { left: -29rpx; top: -178rpx; }
+.photo-seed--8 { left: 142rpx; top: 115rpx; }
+.photo-seed--9 { left: -185rpx; top: 15rpx; }
+.photo-seed--10 { left: 131rpx; top: -121rpx; }
+.photo-seed--11 { left: -2rpx; top: 173rpx; }
+.photo-seed--12 { left: -136rpx; top: -134rpx; }
+.photo-seed--13 { left: 209rpx; top: 18rpx; }
+.photo-seed--14 { left: -139rpx; top: 116rpx; }
+.photo-seed--15 { left: 33rpx; top: -163rpx; }
+.photo-seed--16 { left: 98rpx; top: 147rpx; }
+.photo-seed--17 { left: -185rpx; top: -49rpx; }
+.photo-seed--18 { left: 177rpx; top: -84rpx; }
+.photo-seed--19 { left: -72rpx; top: 182rpx; }
+.photo-seed--20 { left: -78rpx; top: -154rpx; }
+.photo-seed--21 { left: 157rpx; top: 75rpx; }
+.photo-seed--22 { left: -172rpx; top: 52rpx; }
+.photo-seed--23 { left: 95rpx; top: -161rpx; }
+.photo-seed--24 { left: 39rpx; top: 190rpx; }
+.photo-seed--25 { left: -161rpx; top: -97rpx; }
+.photo-seed--26 { left: 203rpx; top: -20rpx; }
+.photo-seed--27 { left: -137rpx; top: 136rpx; }
+.photo-seed--28 { left: -5rpx; top: -187rpx; }
+.photo-seed--29 { left: 126rpx; top: 139rpx; }
+.photo-seed--30 { left: -186rpx; top: -9rpx; }
+.photo-seed--31 { left: 149rpx; top: -109rpx; }
+.photo-seed--32 { left: -28rpx; top: 178rpx; }
+.photo-seed--33 { left: -115rpx; top: -155rpx; }
+.photo-seed--34 { left: 204rpx; top: 45rpx; }
+.photo-seed--35 { left: -152rpx; top: 81rpx; }
+.photo-seed--36 { left: 56rpx; top: -164rpx; }
+.photo-seed--37 { left: 76rpx; top: 164rpx; }
+.photo-seed--38 { left: -176rpx; top: -74rpx; }
+.photo-seed--39 { left: 187rpx; top: -64rpx; }
+.photo-seed--40 { left: -97rpx; top: 146rpx; }
+.photo-seed--41 { left: -51rpx; top: -168rpx; }
+.photo-seed--42 { left: 145rpx; top: 99rpx; }
+.photo-seed--43 { left: -178rpx; top: 30rpx; }
+.photo-seed--44 { left: 115rpx; top: -152rpx; }
+.photo-seed--45 { left: 14rpx; top: 166rpx; }
+.photo-seed--46 { left: -144rpx; top: -119rpx; }
+.photo-seed--47 { left: 204rpx; top: 3rpx; }
+.photo-seed--48 { left: -157rpx; top: 124rpx; }
+.photo-seed--49 { left: 18rpx; top: -193rpx; }
+.photo-seed--50 { left: 107rpx; top: 133rpx; }
+.photo-seed--51 { left: -183rpx; top: -33rpx; }
+.photo-seed--52 { left: 164rpx; top: -94rpx; }
+.photo-seed--53 { left: -54rpx; top: 180rpx; }
+.photo-seed--54 { left: -91rpx; top: -174rpx; }
+.photo-seed--55 { left: 196rpx; top: 59rpx; }
+.photo-seed--56 { left: -162rpx; top: 64rpx; }
+.photo-seed--57 { left: 79rpx; top: -162rpx; }
+.photo-seed--58 { left: 53rpx; top: 179rpx; }
+.photo-seed--59 { left: -165rpx; top: -100rpx; }
 
 /* A held breath loosens the outer tufts before the exhale carries them away. */
 .photo-seeds--hold .photo-seed {
-  opacity: .42;
+  opacity: 0;
   transform: translate3d(8rpx, -6rpx, 0) rotate(-5deg) scale(.72);
 }
+.photo-seeds--hold .photo-seed--preview { opacity: .42; }
 .photo-seeds--exhale .photo-seed {
   animation-duration: 7.6s;
   animation-timing-function: cubic-bezier(.2,.62,.18,1);
@@ -512,32 +567,84 @@
 .photo-seeds--exhale .photo-seed--3 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 120ms 1 both running; }
 .photo-seeds--exhale .photo-seed--4 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 160ms 1 both running; }
 .photo-seeds--exhale .photo-seed--5 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 200ms 1 both running; }
-.photo-seeds--exhale .photo-seed--6 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 240ms 1 both running; }
-.photo-seeds--exhale .photo-seed--7 { animation: photoSeedFlyLeft 7.6s cubic-bezier(.2,.62,.18,1) 280ms 1 both running; }
-.photo-seeds--exhale .photo-seed--8 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 360ms 1 both running; }
-.photo-seeds--exhale .photo-seed--9 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 440ms 1 both running; }
-.photo-seeds--exhale .photo-seed--10 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 520ms 1 both running; }
-.photo-seeds--exhale .photo-seed--11 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 600ms 1 both running; }
-.photo-seeds--exhale .photo-seed--12 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 680ms 1 both running; }
-.photo-seeds--exhale .photo-seed--13 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 760ms 1 both running; }
-.photo-seeds--exhale .photo-seed--14 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 840ms 1 both running; }
-.photo-seeds--exhale .photo-seed--15 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 900ms 1 both running; }
-.photo-seeds--exhale .photo-seed--16 { animation: photoSeedFlyLeft 7.6s cubic-bezier(.2,.62,.18,1) 960ms 1 both running; }
-.photo-seeds--exhale .photo-seed--17 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 1020ms 1 both running; }
-.photo-seeds--exhale .photo-seed--18 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 1080ms 1 both running; }
-.photo-seeds--exhale .photo-seed--19 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 1140ms 1 both running; }
+.photo-seeds--exhale .photo-seed--6 { animation: photoSeedFly6 7.6s cubic-bezier(.2,.62,.18,1) 240ms 1 both running; }
+.photo-seeds--exhale .photo-seed--7 { animation: photoSeedFly7 7.6s cubic-bezier(.2,.62,.18,1) 280ms 1 both running; }
+.photo-seeds--exhale .photo-seed--8 { animation: photoSeedFly8 7.6s cubic-bezier(.2,.62,.18,1) 320ms 1 both running; }
+.photo-seeds--exhale .photo-seed--9 { animation: photoSeedFly9 7.6s cubic-bezier(.2,.62,.18,1) 360ms 1 both running; }
+.photo-seeds--exhale .photo-seed--10 { animation: photoSeedFly10 7.6s cubic-bezier(.2,.62,.18,1) 400ms 1 both running; }
+.photo-seeds--exhale .photo-seed--11 { animation: photoSeedFly11 7.6s cubic-bezier(.2,.62,.18,1) 440ms 1 both running; }
+.photo-seeds--exhale .photo-seed--12 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 480ms 1 both running; }
+.photo-seeds--exhale .photo-seed--13 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 520ms 1 both running; }
+.photo-seeds--exhale .photo-seed--14 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 560ms 1 both running; }
+.photo-seeds--exhale .photo-seed--15 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 600ms 1 both running; }
+.photo-seeds--exhale .photo-seed--16 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 640ms 1 both running; }
+.photo-seeds--exhale .photo-seed--17 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 680ms 1 both running; }
+.photo-seeds--exhale .photo-seed--18 { animation: photoSeedFly6 7.6s cubic-bezier(.2,.62,.18,1) 720ms 1 both running; }
+.photo-seeds--exhale .photo-seed--19 { animation: photoSeedFly7 7.6s cubic-bezier(.2,.62,.18,1) 760ms 1 both running; }
+.photo-seeds--exhale .photo-seed--20 { animation: photoSeedFly8 7.6s cubic-bezier(.2,.62,.18,1) 800ms 1 both running; }
+.photo-seeds--exhale .photo-seed--21 { animation: photoSeedFly9 7.6s cubic-bezier(.2,.62,.18,1) 880ms 1 both running; }
+.photo-seeds--exhale .photo-seed--22 { animation: photoSeedFly10 7.6s cubic-bezier(.2,.62,.18,1) 960ms 1 both running; }
+.photo-seeds--exhale .photo-seed--23 { animation: photoSeedFly11 7.6s cubic-bezier(.2,.62,.18,1) 1040ms 1 both running; }
+.photo-seeds--exhale .photo-seed--24 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 1120ms 1 both running; }
+.photo-seeds--exhale .photo-seed--25 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 1200ms 1 both running; }
+.photo-seeds--exhale .photo-seed--26 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 1280ms 1 both running; }
+.photo-seeds--exhale .photo-seed--27 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 1360ms 1 both running; }
+.photo-seeds--exhale .photo-seed--28 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 1440ms 1 both running; }
+.photo-seeds--exhale .photo-seed--29 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 1520ms 1 both running; }
+.photo-seeds--exhale .photo-seed--30 { animation: photoSeedFly6 7.6s cubic-bezier(.2,.62,.18,1) 1600ms 1 both running; }
+.photo-seeds--exhale .photo-seed--31 { animation: photoSeedFly7 7.6s cubic-bezier(.2,.62,.18,1) 1680ms 1 both running; }
+.photo-seeds--exhale .photo-seed--32 { animation: photoSeedFly8 7.6s cubic-bezier(.2,.62,.18,1) 1760ms 1 both running; }
+.photo-seeds--exhale .photo-seed--33 { animation: photoSeedFly9 7.6s cubic-bezier(.2,.62,.18,1) 1840ms 1 both running; }
+.photo-seeds--exhale .photo-seed--34 { animation: photoSeedFly10 7.6s cubic-bezier(.2,.62,.18,1) 1920ms 1 both running; }
+.photo-seeds--exhale .photo-seed--35 { animation: photoSeedFly11 7.6s cubic-bezier(.2,.62,.18,1) 2000ms 1 both running; }
+.photo-seeds--exhale .photo-seed--36 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 2080ms 1 both running; }
+.photo-seeds--exhale .photo-seed--37 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 2160ms 1 both running; }
+.photo-seeds--exhale .photo-seed--38 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 2240ms 1 both running; }
+.photo-seeds--exhale .photo-seed--39 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 2320ms 1 both running; }
+.photo-seeds--exhale .photo-seed--40 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 2400ms 1 both running; }
+.photo-seeds--exhale .photo-seed--41 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 2520ms 1 both running; }
+.photo-seeds--exhale .photo-seed--42 { animation: photoSeedFly6 7.6s cubic-bezier(.2,.62,.18,1) 2640ms 1 both running; }
+.photo-seeds--exhale .photo-seed--43 { animation: photoSeedFly7 7.6s cubic-bezier(.2,.62,.18,1) 2760ms 1 both running; }
+.photo-seeds--exhale .photo-seed--44 { animation: photoSeedFly8 7.6s cubic-bezier(.2,.62,.18,1) 2880ms 1 both running; }
+.photo-seeds--exhale .photo-seed--45 { animation: photoSeedFly9 7.6s cubic-bezier(.2,.62,.18,1) 3000ms 1 both running; }
+.photo-seeds--exhale .photo-seed--46 { animation: photoSeedFly10 7.6s cubic-bezier(.2,.62,.18,1) 3120ms 1 both running; }
+.photo-seeds--exhale .photo-seed--47 { animation: photoSeedFly11 7.6s cubic-bezier(.2,.62,.18,1) 3240ms 1 both running; }
+.photo-seeds--exhale .photo-seed--48 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 3360ms 1 both running; }
+.photo-seeds--exhale .photo-seed--49 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 3480ms 1 both running; }
+.photo-seeds--exhale .photo-seed--50 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 3600ms 1 both running; }
+.photo-seeds--exhale .photo-seed--51 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 3720ms 1 both running; }
+.photo-seeds--exhale .photo-seed--52 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 3840ms 1 both running; }
+.photo-seeds--exhale .photo-seed--53 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 3960ms 1 both running; }
+.photo-seeds--exhale .photo-seed--54 { animation: photoSeedFly6 7.6s cubic-bezier(.2,.62,.18,1) 4080ms 1 both running; }
+.photo-seeds--exhale .photo-seed--55 { animation: photoSeedFly7 7.6s cubic-bezier(.2,.62,.18,1) 4200ms 1 both running; }
+.photo-seeds--exhale .photo-seed--56 { animation: photoSeedFly8 7.6s cubic-bezier(.2,.62,.18,1) 4320ms 1 both running; }
+.photo-seeds--exhale .photo-seed--57 { animation: photoSeedFly9 7.6s cubic-bezier(.2,.62,.18,1) 4440ms 1 both running; }
+.photo-seeds--exhale .photo-seed--58 { animation: photoSeedFly10 7.6s cubic-bezier(.2,.62,.18,1) 4560ms 1 both running; }
+.photo-seeds--exhale .photo-seed--59 { animation: photoSeedFly11 7.6s cubic-bezier(.2,.62,.18,1) 4680ms 1 both running; }
 
-@keyframes dandelionHoldSwayVisible {
+@keyframes crownHoldSway {
   0% { transform: rotate(-10deg) scale(1.04); }
-  100% { transform: rotate(10deg) scale(1.04); }
+  50% { transform: rotate(10deg) scale(1.07); }
+  100% { transform: rotate(-10deg) scale(1.04); }
 }
-@keyframes dandelionFerrisRotate {
+@keyframes crownFerrisRotate {
   0% { transform: rotate(0deg) scale(1.02); }
   100% { transform: rotate(360deg) scale(1.08); }
+}
+@keyframes crownExhaleRotate {
+  0% { transform: rotate(0deg) scale(1.02); }
+  35% { transform: rotate(105deg) scale(1.01); }
+  70% { transform: rotate(210deg) scale(.99); }
+  100% { transform: rotate(300deg) scale(.97); }
 }
 .photo-seeds--completed .photo-seed {
   opacity: 0;
   transform: translate3d(180rpx, -120rpx, 0) rotate(32deg) scale(.24);
+}
+.photo-seeds--completed .photo-seed:nth-child(-n+4) {
+  opacity: .16;
+  transform: translate3d(118rpx, -94rpx, 0) rotate(26deg) scale(.3);
+  transition: opacity 1.8s ease;
 }
 
 @keyframes photoSeedFly0 {
@@ -594,3 +701,12 @@
   10%, 78% { opacity: .88; }
   100% { opacity: 0; transform: translate3d(12rpx, -188rpx, 0) rotate(18deg) scale(.34); }
 }
+
+/* Additional Skyline-safe paths for the expanded seed field. Each path keeps
+   the flower-edge origin while varying its arc, rotation, and final distance. */
+@keyframes photoSeedFly6 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(-22deg) scale(.68); } 12% { opacity: .94; } 52% { opacity: .86; transform: translate3d(48rpx,-76rpx,0) rotate(-58deg) scale(.57); } 78% { opacity: .62; } 100% { opacity: 0; transform: translate3d(142rpx,-155rpx,0) rotate(-104deg) scale(.35); } }
+@keyframes photoSeedFly7 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(-4deg) scale(.56); } 12% { opacity: .9; } 52% { opacity: .82; transform: translate3d(96rpx,-32rpx,0) rotate(28deg) scale(.46); } 78% { opacity: .58; } 100% { opacity: 0; transform: translate3d(154rpx,-62rpx,0) rotate(82deg) scale(.3); } }
+@keyframes photoSeedFly8 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(14deg) scale(.5); } 12% { opacity: .88; } 52% { opacity: .8; transform: translate3d(-84rpx,-70rpx,0) rotate(-22deg) scale(.42); } 78% { opacity: .54; } 100% { opacity: 0; transform: translate3d(-128rpx,-144rpx,0) rotate(26deg) scale(.27); } }
+@keyframes photoSeedFly9 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(-18deg) scale(.62); } 12% { opacity: .92; } 52% { opacity: .84; transform: translate3d(40rpx,-88rpx,0) rotate(18deg) scale(.52); } 78% { opacity: .6; } 100% { opacity: 0; transform: translate3d(12rpx,-190rpx,0) rotate(-32deg) scale(.31); } }
+@keyframes photoSeedFly10 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(-2deg) scale(.54); } 12% { opacity: .9; } 52% { opacity: .8; transform: translate3d(-80rpx,-30rpx,0) rotate(-38deg) scale(.44); } 78% { opacity: .55; } 100% { opacity: 0; transform: translate3d(-130rpx,-72rpx,0) rotate(8deg) scale(.28); } }
+@keyframes photoSeedFly11 { 0%, 4% { opacity: 0; transform: translate3d(0,0,0) rotate(12deg) scale(.48); } 12% { opacity: .86; } 52% { opacity: .78; transform: translate3d(58rpx,18rpx,0) rotate(48deg) scale(.38); } 78% { opacity: .48; } 100% { opacity: 0; transform: translate3d(80rpx,70rpx,0) rotate(104deg) scale(.24); } }

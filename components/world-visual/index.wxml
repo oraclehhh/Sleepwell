@@ -13,15 +13,16 @@
   <block wx:if="{{world === 'dandelion'}}">
     <view class="dandelion">
       <view class="dandelion-photo-layer" aria-label="随呼吸轻轻飘动的蒲公英">
-        <view class="dandelion-photo-position">
-          <view class="dandelion-photo-motion">
-            <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
-            <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
-            <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse-v2.png" mode="aspectFit"></image>
+        <image class="dandelion-stem-static" src="/assets/dandelion/stem-static.png" mode="aspectFit"></image>
+        <view class="dandelion-crown-anchor">
+          <view class="dandelion-crown-motion">
+            <image class="dandelion-crown dandelion-crown--full" src="/assets/dandelion/crown-full.png" mode="aspectFit"></image>
+            <image class="dandelion-crown dandelion-crown--loosened" src="/assets/dandelion/crown-loosened.png" mode="aspectFit"></image>
+            <image class="dandelion-crown dandelion-crown--sparse" src="/assets/dandelion/crown-sparse.png" mode="aspectFit"></image>
           </view>
         </view>
         <view class="photo-seeds photo-seeds--{{phase}}" aria-hidden="true">
-          <view wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}} photo-seed--{{item.layer}}">
+          <view wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{item.id}} photo-seed--{{item.layer}} {{item.preview ? 'photo-seed--preview' : ''}}">
             <image class="photo-seed-image" src="/assets/dandelion/seed.png" mode="aspectFit"></image>
           </view>
         </view>

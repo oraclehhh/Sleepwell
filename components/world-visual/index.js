@@ -19,12 +19,11 @@ function createFallbackSeeds(count) {
 }
 
 function createPhotoSeeds() {
-  const layers = [
-    'near', 'near', 'near', 'near', 'near',
-    'mid', 'mid', 'mid', 'mid', 'mid', 'mid', 'mid',
-    'far', 'far', 'far', 'far', 'far', 'far', 'far', 'far'
-  ];
-  return layers.map((layer, id) => ({ id, layer }));
+  return Array.from({ length: 60 }, (_, id) => ({
+    id,
+    layer: ['near', 'mid', 'far'][id % 3],
+    preview: id < 8
+  }));
 }
 
 Component({
