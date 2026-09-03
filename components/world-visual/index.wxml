@@ -13,9 +13,13 @@
   <block wx:if="{{world === 'dandelion'}}">
     <view class="dandelion">
       <view class="dandelion-photo-layer" aria-label="随呼吸轻轻飘动的蒲公英">
-        <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
-        <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
-        <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse-v2.png" mode="aspectFit"></image>
+        <view class="dandelion-photo-position">
+          <view class="dandelion-photo-motion">
+            <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
+            <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
+            <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse-v2.png" mode="aspectFit"></image>
+          </view>
+        </view>
         <view class="photo-seeds photo-seeds--{{phase}}" aria-hidden="true">
           <view wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}} photo-seed--{{item.layer}}">
             <image class="photo-seed-image" src="/assets/dandelion/seed.png" mode="aspectFit"></image>
