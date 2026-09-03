@@ -1,14 +1,20 @@
 <view class="page-shell breathe-page world-bg--{{previewWorld || settings.world}}">
   <view class="topbar" style="{{nav.topbarStyle}}">
-    <button class="icon-button icon-button--back" bindtap="goBack" aria-label="返回"><view class="back-arrow"></view></button>
-    <text class="topbar-label">深呼吸</text>
-    <button class="icon-button topbar-settings" bindtap="openSettings" aria-label="呼吸设置"><view class="settings-ring"><view class="settings-dot"></view></view></button>
+    <button class="icon-button icon-button--exit" bindtap="exitMiniProgram" aria-label="退出小程序"><view class="close-icon"></view></button>
+    <button class="icon-button topbar-settings" bindtap="openSettings" aria-label="呼吸设置">
+      <view class="sliders-icon"><view class="slider-line"></view><view class="slider-line"></view><view class="slider-line"></view></view>
+    </button>
+    <button class="icon-button icon-button--wide" bindtap="openFocus" aria-label="关灯引导">
+      <text class="moon-icon">☾</text>
+      <text>关灯</text>
+    </button>
   </view>
 
-  <view class="prompt-block {{phase !== 'idle' ? 'is-active' : ''}}" style="top: 108px;">
+  <view class="prompt-block {{phase !== 'idle' ? 'is-active' : ''}}" style="top: {{nav.navigationBottom + 12}}px;">
+    <text wx:if="{{firstHint}}" class="first-hint">按住开始，4秒后可以松开</text>
     <text class="main-prompt">{{mainPrompt}}</text>
     <text class="sub-prompt">{{subPrompt}}</text>
-    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{countdown}}</text>
+    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{phaseLabel}} {{countdown}}</text>
   </view>
 
   <view class="completion-mask {{showCompletion ? 'is-visible' : ''}}" catchtap="finishQuietly">
@@ -33,7 +39,7 @@
 
   <view
     class="breath-stage"
-    style="top: 0;"
+    style="top: {{nav.navigationBottom + 64}}px;"
     catchtouchstart="handlePressStart"
     catchtouchend="handlePressEnd"
     catchtouchcancel="handlePressCancel"
@@ -49,12 +55,28 @@
   </view>
 
   <view class="cycle-dots" aria-label="已完成 {{cycles}} 次呼吸">
-    <view wx:for="{{cycleDots}}" wx:key="*this" class="cycle-dot {{index < cycles ? 'is-filled' : ''}}"></view>
+    <view
+      wx:for="{{cycleDots}}"
+      wx:key="*this"
+      class="cycle-dot {{index < cycles ? 'is-filled' : ''}}"
+    ></view>
+    <text wx:if="{{cycles > 0}}" class="cycle-count">{{cycles}}</text>
   </view>
   <button wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="stop-breath" bindtap="stopBreathing" aria-label="停止呼吸">停止</button>
 
   <view class="bottom-nav safe-bottom">
-    <text class="bottom-caption">{{phase === 'idle' ? '按住屏幕开始吸气' : phase === 'inhale' ? '保持按住' : phase === 'hold' ? '短暂停留' : phase === 'exhale' ? '松开手指' : '太棒了，完成一轮呼吸'}}</text>
+    <button class="nav-item" bindtap="goBody">
+      <view class="nav-icon body-nav-icon"></view>
+      <text>身体</text>
+    </button>
+    <button class="nav-item nav-item--world" bindlongpress="openWorldPicker" bindtap="noop" aria-label="长按切换呼吸世界">
+      <view class="world-button"><text>{{currentWorld.glyph}}</text></view>
+      <text>呼吸世界</text>
+    </button>
+    <button class="nav-item" bindtap="openRecords">
+      <view class="nav-icon record-nav-icon"><view class="record-line"></view><view class="record-line"></view><view class="record-line"></view></view>
+      <text>记录</text>
+    </button>
   </view>
 
   <view class="body-nudge {{showBodyNudge ? 'is-visible' : ''}}">

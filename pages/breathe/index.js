@@ -31,8 +31,8 @@ Page({
     currentCycle: CYCLE_OPTIONS[0],
     currentSound: SOUND_OPTIONS[0],
     phase: PHASES.IDLE,
-    mainPrompt: '放松身心，回到当下',
-    subPrompt: '跟随呼吸的节奏',
+    mainPrompt: '按住，慢慢吸气',
+    subPrompt: '4秒后，跟随提示自然呼吸',
     cycles: 0,
     cycleDots: [0, 1, 2, 3, 4, 5],
     showSettings: false,
@@ -101,11 +101,11 @@ Page({
     const phase = result.state.phase;
     const view = getBreathView(result.state, Date.now());
     const updates = { phase, cycles: result.state.cycles, countdown: view.countdown, phaseLabel: view.phaseLabel };
-    if (phase === PHASES.INHALE) Object.assign(updates, { mainPrompt: '吸气', subPrompt: '按住屏幕，慢慢吸气', firstHint: false });
-    if (phase === PHASES.HOLD) Object.assign(updates, { mainPrompt: '屏息', subPrompt: '短暂停留', firstHint: false });
+    if (phase === PHASES.INHALE) Object.assign(updates, { mainPrompt: '深呼吸', subPrompt: '感受腹部向外扩张', firstHint: false });
+    if (phase === PHASES.HOLD) Object.assign(updates, { mainPrompt: '停留', subPrompt: '让这一口气停留片刻', firstHint: false });
     if (phase === PHASES.HOLD && result.state.readyToRelease) Object.assign(updates, { mainPrompt: '准备好，就慢慢松开', subPrompt: '松开，开始呼气' });
-    if (phase === PHASES.EXHALE) Object.assign(updates, { mainPrompt: '呼气', subPrompt: '松开手指，慢慢呼出', firstHint: false });
-    if (phase === PHASES.IDLE && result.state.cycles === 0) Object.assign(updates, { mainPrompt: '放松身心，回到当下', subPrompt: '跟随呼吸的节奏' });
+    if (phase === PHASES.EXHALE) Object.assign(updates, { mainPrompt: '呼气', subPrompt: '感受腹部慢慢回落', firstHint: false });
+    if (phase === PHASES.IDLE && result.state.cycles === 0) Object.assign(updates, { mainPrompt: '按住，慢慢吸气', subPrompt: '4秒后，跟随提示自然呼吸' });
     if (phase === PHASES.COMPLETED) {
       const naturalCompletion = result.effects.some((effect) => effect.type === 'complete');
       Object.assign(updates, { mainPrompt: '可以停在这里', subPrompt: '给自己一个安静的结束', showCompletion: !naturalCompletion, showOutcome: true });
@@ -197,17 +197,6 @@ Page({
 
   openFocus() {
     wx.navigateTo({ url: '/pages/focus/index' });
-  },
-
-  goBack() {
-    this.interruptBreathing();
-    this.persistSession();
-    const pages = typeof getCurrentPages === 'function' ? getCurrentPages() : [];
-    if (pages.length > 1 && wx.navigateBack) {
-      wx.navigateBack({ delta: 1 });
-      return;
-    }
-    navigation.exitMiniProgram();
   },
 
   exitMiniProgram() {
