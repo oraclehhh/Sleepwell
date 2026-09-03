@@ -16,7 +16,7 @@
         <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
         <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
         <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse.png" mode="aspectFit"></image>
-        <view class="photo-seeds" aria-hidden="true">
+        <view class="photo-seeds photo-seeds--{{phase}}" aria-hidden="true">
           <image wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}}" src="/assets/dandelion/seed.png" mode="aspectFit"></image>
         </view>
       </view>
