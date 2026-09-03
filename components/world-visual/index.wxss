@@ -427,7 +427,10 @@
   height: 68rpx;
   opacity: 0;
   transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58);
+  animation-iteration-count: 1;
+  animation-play-state: running;
 }
+.photo-seed-image { display: block; width: 100%; height: 100%; }
 .photo-seed--0 { left: 58%; top: 25%; transition-delay: 0ms; }
 .photo-seed--1 { left: 69%; top: 30%; transition-delay: 120ms; }
 .photo-seed--2 { left: 77%; top: 21%; transition-delay: 240ms; }
@@ -444,13 +447,14 @@
   animation-duration: 7.6s;
   animation-timing-function: cubic-bezier(.2,.62,.18,1);
   animation-fill-mode: both;
+  animation-play-state: running;
 }
-.photo-seeds--exhale .photo-seed--0 { animation-name: photoSeedFly0; animation-delay: 0ms; }
-.photo-seeds--exhale .photo-seed--1 { animation-name: photoSeedFly1; animation-delay: 120ms; }
-.photo-seeds--exhale .photo-seed--2 { animation-name: photoSeedFly2; animation-delay: 240ms; }
-.photo-seeds--exhale .photo-seed--3 { animation-name: photoSeedFly3; animation-delay: 380ms; }
-.photo-seeds--exhale .photo-seed--4 { animation-name: photoSeedFly4; animation-delay: 500ms; }
-.photo-seeds--exhale .photo-seed--5 { animation-name: photoSeedFly5; animation-delay: 620ms; }
+.photo-seeds--exhale .photo-seed--0 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 0ms 1 both running; }
+.photo-seeds--exhale .photo-seed--1 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 120ms 1 both running; }
+.photo-seeds--exhale .photo-seed--2 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 240ms 1 both running; }
+.photo-seeds--exhale .photo-seed--3 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 380ms 1 both running; }
+.photo-seeds--exhale .photo-seed--4 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 500ms 1 both running; }
+.photo-seeds--exhale .photo-seed--5 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 620ms 1 both running; }
 .photo-seeds--completed .photo-seed {
   opacity: 0;
   transform: translate3d(180rpx, -120rpx, 0) rotate(32deg) scale(.24);
