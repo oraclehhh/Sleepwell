@@ -414,6 +414,9 @@
 .world--dandelion.phase--inhale .dandelion-photo--full { opacity: 1; transform: translate(-50%, -50%) scale(1.045); filter: brightness(1.08) saturate(.92) sepia(.1); }
 .world--dandelion.phase--hold .dandelion-photo--full { opacity: 0; }
 .world--dandelion.phase--hold .dandelion-photo--loosened { opacity: 1; transform: translate(-50%, -50%) scale(1.045); filter: brightness(1.04) saturate(.9) sepia(.12); }
+.world--dandelion.phase--hold .dandelion-photo--loosened {
+  animation: dandelionHoldSway 6.6s ease-in-out infinite;
+}
 .world--dandelion.phase--exhale .dandelion-photo--full { opacity: 0; }
 .world--dandelion.phase--exhale .dandelion-photo--loosened { opacity: .62; transform: translate(-50%, -50%) scale(1.01) rotate(1deg); filter: brightness(.96) saturate(.82) sepia(.16); }
 .world--dandelion.phase--exhale .dandelion-photo--sparse { opacity: .86; transform: translate(-50%, -50%) scale(1.01) rotate(1deg); filter: brightness(.96) saturate(.82) sepia(.16); }
@@ -440,12 +443,31 @@
   animation-play-state: running;
 }
 .photo-seed-image { display: block; width: 100%; height: 100%; }
+.photo-seed--near { width: 64rpx; height: 78rpx; filter: brightness(1.18) saturate(1.08) drop-shadow(0 0 9rpx rgba(255, 205, 131, .46)); }
+.photo-seed--mid { width: 52rpx; height: 64rpx; filter: brightness(1.04) saturate(.94) drop-shadow(0 0 6rpx rgba(255, 193, 112, .3)); }
+.photo-seed--far { width: 40rpx; height: 50rpx; filter: brightness(.82) saturate(.78) drop-shadow(0 0 4rpx rgba(255, 183, 99, .2)); }
+.photo-seed--mid .photo-seed-image { opacity: .82; }
+.photo-seed--far .photo-seed-image { opacity: .55; }
 .photo-seed--0 { left: 120rpx; top: -190rpx; }
 .photo-seed--1 { left: 154rpx; top: -140rpx; }
 .photo-seed--2 { left: 184rpx; top: -62rpx; }
 .photo-seed--3 { left: 170rpx; top: 28rpx; }
 .photo-seed--4 { left: 86rpx; top: -204rpx; }
 .photo-seed--5 { left: -18rpx; top: -196rpx; }
+.photo-seed--6 { left: -116rpx; top: -174rpx; }
+.photo-seed--7 { left: -188rpx; top: -116rpx; }
+.photo-seed--8 { left: -214rpx; top: -20rpx; }
+.photo-seed--9 { left: -44rpx; top: -230rpx; }
+.photo-seed--10 { left: 138rpx; top: -176rpx; }
+.photo-seed--11 { left: 196rpx; top: -30rpx; }
+.photo-seed--12 { left: 176rpx; top: 58rpx; }
+.photo-seed--13 { left: 54rpx; top: -220rpx; }
+.photo-seed--14 { left: -2rpx; top: -238rpx; }
+.photo-seed--15 { left: -92rpx; top: -204rpx; }
+.photo-seed--16 { left: -166rpx; top: -126rpx; }
+.photo-seed--17 { left: -208rpx; top: 12rpx; }
+.photo-seed--18 { left: -132rpx; top: -178rpx; }
+.photo-seed--19 { left: -72rpx; top: -218rpx; }
 
 /* A held breath loosens the outer tufts before the exhale carries them away. */
 .photo-seeds--hold .photo-seed {
@@ -459,11 +481,31 @@
   animation-play-state: running;
 }
 .photo-seeds--exhale .photo-seed--0 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 0ms 1 both running; }
-.photo-seeds--exhale .photo-seed--1 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 120ms 1 both running; }
-.photo-seeds--exhale .photo-seed--2 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 240ms 1 both running; }
-.photo-seeds--exhale .photo-seed--3 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 380ms 1 both running; }
-.photo-seeds--exhale .photo-seed--4 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 500ms 1 both running; }
-.photo-seeds--exhale .photo-seed--5 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 620ms 1 both running; }
+.photo-seeds--exhale .photo-seed--1 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 40ms 1 both running; }
+.photo-seeds--exhale .photo-seed--2 { animation: photoSeedFly2 7.6s cubic-bezier(.2,.62,.18,1) 80ms 1 both running; }
+.photo-seeds--exhale .photo-seed--3 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 120ms 1 both running; }
+.photo-seeds--exhale .photo-seed--4 { animation: photoSeedFly4 7.6s cubic-bezier(.2,.62,.18,1) 160ms 1 both running; }
+.photo-seeds--exhale .photo-seed--5 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 200ms 1 both running; }
+.photo-seeds--exhale .photo-seed--6 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 240ms 1 both running; }
+.photo-seeds--exhale .photo-seed--7 { animation: photoSeedFlyLeft 7.6s cubic-bezier(.2,.62,.18,1) 280ms 1 both running; }
+.photo-seeds--exhale .photo-seed--8 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 360ms 1 both running; }
+.photo-seeds--exhale .photo-seed--9 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 440ms 1 both running; }
+.photo-seeds--exhale .photo-seed--10 { animation: photoSeedFly0 7.6s cubic-bezier(.2,.62,.18,1) 520ms 1 both running; }
+.photo-seeds--exhale .photo-seed--11 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 600ms 1 both running; }
+.photo-seeds--exhale .photo-seed--12 { animation: photoSeedFly1 7.6s cubic-bezier(.2,.62,.18,1) 680ms 1 both running; }
+.photo-seeds--exhale .photo-seed--13 { animation: photoSeedFly5 7.6s cubic-bezier(.2,.62,.18,1) 760ms 1 both running; }
+.photo-seeds--exhale .photo-seed--14 { animation: photoSeedFly3 7.6s cubic-bezier(.2,.62,.18,1) 840ms 1 both running; }
+.photo-seeds--exhale .photo-seed--15 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 900ms 1 both running; }
+.photo-seeds--exhale .photo-seed--16 { animation: photoSeedFlyLeft 7.6s cubic-bezier(.2,.62,.18,1) 960ms 1 both running; }
+.photo-seeds--exhale .photo-seed--17 { animation: photoSeedFlyLeftUp 7.6s cubic-bezier(.2,.62,.18,1) 1020ms 1 both running; }
+.photo-seeds--exhale .photo-seed--18 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 1080ms 1 both running; }
+.photo-seeds--exhale .photo-seed--19 { animation: photoSeedFlyUp 7.6s cubic-bezier(.2,.62,.18,1) 1140ms 1 both running; }
+
+@keyframes dandelionHoldSway {
+  0% { transform: translate(calc(-50% - 6rpx), calc(-50% + 1rpx)) scale(1.04) rotate(-1.2deg); }
+  50% { transform: translate(calc(-50% + 4rpx), calc(-50% - 3rpx)) scale(1.05) rotate(1.4deg); }
+  100% { transform: translate(calc(-50% - 2rpx), calc(-50% + 2rpx)) scale(1.04) rotate(-1deg); }
+}
 .photo-seeds--completed .photo-seed {
   opacity: 0;
   transform: translate3d(180rpx, -120rpx, 0) rotate(32deg) scale(.24);
@@ -504,4 +546,22 @@
   4% { opacity: 0; }
   10%, 78% { opacity: .92; }
   100% { opacity: 0; transform: translate3d(144rpx, -164rpx, 0) rotate(46deg) scale(.31); }
+}
+@keyframes photoSeedFlyLeftUp {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(16deg) scale(.58); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .9; }
+  100% { opacity: 0; transform: translate3d(-138rpx, -126rpx, 0) rotate(-38deg) scale(.38); }
+}
+@keyframes photoSeedFlyLeft {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(16deg) scale(.58); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .84; }
+  100% { opacity: 0; transform: translate3d(-164rpx, -38rpx, 0) rotate(-52deg) scale(.32); }
+}
+@keyframes photoSeedFlyUp {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-8deg) scale(.58); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .88; }
+  100% { opacity: 0; transform: translate3d(12rpx, -188rpx, 0) rotate(18deg) scale(.34); }
 }
