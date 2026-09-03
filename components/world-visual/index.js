@@ -19,18 +19,7 @@ function createFallbackSeeds(count) {
 }
 
 function createPhotoSeeds() {
-  const points = [
-    { x: 58, y: 25, dx: 120, dy: -96, scale: .48, delay: 0 },
-    { x: 69, y: 30, dx: 168, dy: -68, scale: .42, delay: .12 },
-    { x: 77, y: 21, dx: 218, dy: -122, scale: .36, delay: .24 },
-    { x: 84, y: 35, dx: 270, dy: -62, scale: .3, delay: .38 },
-    { x: 53, y: 34, dx: 100, dy: -145, scale: .39, delay: .5 },
-    { x: 64, y: 18, dx: 150, dy: -176, scale: .31, delay: .62 }
-  ];
-  return points.map((point, id) => ({
-    id,
-    style: `--seed-x:${point.dx}rpx;--seed-y:${point.dy}rpx;--seed-scale:${point.scale};animation-delay:${point.delay}s;left:${point.x}%;top:${point.y}%;`
-  }));
+  return Array.from({ length: 6 }, (_, id) => ({ id }));
 }
 
 Component({

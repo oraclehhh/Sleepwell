@@ -420,7 +420,16 @@
 .world--dandelion.phase--completed .dandelion-photo--full,
 .world--dandelion.phase--completed .dandelion-photo--loosened { opacity: 0; }
 .world--dandelion.phase--completed .dandelion-photo--sparse { opacity: .74; transform: translate(-50%, -50%) scale(.99); filter: brightness(.9) saturate(.76) sepia(.18); }
-.photo-seeds { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.photo-seeds {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 43%;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+}
 .photo-seed {
   position: absolute;
   width: 56rpx;
@@ -431,17 +440,17 @@
   animation-play-state: running;
 }
 .photo-seed-image { display: block; width: 100%; height: 100%; }
-.photo-seed--0 { left: 58%; top: 25%; transition-delay: 0ms; }
-.photo-seed--1 { left: 69%; top: 30%; transition-delay: 120ms; }
-.photo-seed--2 { left: 77%; top: 21%; transition-delay: 240ms; }
-.photo-seed--3 { left: 84%; top: 35%; transition-delay: 380ms; }
-.photo-seed--4 { left: 53%; top: 34%; transition-delay: 500ms; }
-.photo-seed--5 { left: 64%; top: 18%; transition-delay: 620ms; }
+.photo-seed--0 { left: 120rpx; top: -190rpx; }
+.photo-seed--1 { left: 154rpx; top: -140rpx; }
+.photo-seed--2 { left: 184rpx; top: -62rpx; }
+.photo-seed--3 { left: 170rpx; top: 28rpx; }
+.photo-seed--4 { left: 86rpx; top: -204rpx; }
+.photo-seed--5 { left: -18rpx; top: -196rpx; }
 
 /* A held breath loosens the outer tufts before the exhale carries them away. */
 .photo-seeds--hold .photo-seed {
   opacity: .42;
-  transform: translate3d(10rpx, -8rpx, 0) rotate(-5deg) scale(.72);
+  transform: translate3d(8rpx, -6rpx, 0) rotate(-5deg) scale(.72);
 }
 .photo-seeds--exhale .photo-seed {
   animation-duration: 7.6s;
@@ -462,31 +471,37 @@
 
 @keyframes photoSeedFly0 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .98; }
-  100% { opacity: 0; transform: translate3d(120rpx, -96rpx, 0) rotate(24deg) scale(.48); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .98; }
+  100% { opacity: 0; transform: translate3d(148rpx, -132rpx, 0) rotate(34deg) scale(.48); }
 }
 @keyframes photoSeedFly1 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .96; }
-  100% { opacity: 0; transform: translate3d(168rpx, -68rpx, 0) rotate(28deg) scale(.42); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .96; }
+  100% { opacity: 0; transform: translate3d(142rpx, -92rpx, 0) rotate(42deg) scale(.42); }
 }
 @keyframes photoSeedFly2 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .94; }
-  100% { opacity: 0; transform: translate3d(218rpx, -122rpx, 0) rotate(30deg) scale(.36); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .94; }
+  100% { opacity: 0; transform: translate3d(108rpx, -38rpx, 0) rotate(52deg) scale(.36); }
 }
 @keyframes photoSeedFly3 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .92; }
-  100% { opacity: 0; transform: translate3d(270rpx, -62rpx, 0) rotate(34deg) scale(.3); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .92; }
+  100% { opacity: 0; transform: translate3d(106rpx, 34rpx, 0) rotate(58deg) scale(.3); }
 }
 @keyframes photoSeedFly4 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .96; }
-  100% { opacity: 0; transform: translate3d(100rpx, -145rpx, 0) rotate(22deg) scale(.39); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .96; }
+  100% { opacity: 0; transform: translate3d(164rpx, -148rpx, 0) rotate(38deg) scale(.39); }
 }
 @keyframes photoSeedFly5 {
   0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg) scale(.58); }
-  10%, 68% { opacity: .92; }
-  100% { opacity: 0; transform: translate3d(150rpx, -176rpx, 0) rotate(36deg) scale(.31); }
+  4% { opacity: 0; }
+  10%, 78% { opacity: .92; }
+  100% { opacity: 0; transform: translate3d(144rpx, -164rpx, 0) rotate(46deg) scale(.31); }
 }
