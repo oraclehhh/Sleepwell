@@ -16,8 +16,8 @@
         <image class="dandelion-photo dandelion-photo--full" src="/assets/dandelion/photo-full.png" mode="aspectFit"></image>
         <image class="dandelion-photo dandelion-photo--loosened" src="/assets/dandelion/photo-loosened.png" mode="aspectFit"></image>
         <image class="dandelion-photo dandelion-photo--sparse" src="/assets/dandelion/photo-sparse.png" mode="aspectFit"></image>
-        <view wx:if="{{phase === 'exhale' || phase === 'completed'}}" class="photo-seeds">
-          <image wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}}" src="/assets/dandelion/seed.png" mode="aspectFit" style="{{item.style}}"></image>
+        <view class="photo-seeds" aria-hidden="true">
+          <image wx:for="{{photoSeeds}}" wx:key="id" class="photo-seed photo-seed--{{index}}" src="/assets/dandelion/seed.png" mode="aspectFit"></image>
         </view>
       </view>
       <canvas wx:if="{{useCanvas}}" type="2d" id="dandelionCanvas" class="dandelion-canvas"></canvas>
