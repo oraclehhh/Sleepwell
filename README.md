@@ -30,11 +30,57 @@
 - 蒲公英默认使用 `useCanvas: false` 的摄影图片分层：静态花茎、可动花冠和独立种子；Canvas/Skyline Worklet 代码仍保留作为实验和兼容路径，但不是当前可见主渲染
 - 不支持图片层时仍可保留 Canvas 2D 动画；低性能设备的 Canvas 路径会降低绒毛数量和帧率
 - 8 个世界共用 `components/world-visual`，首页和身体呼吸保持同一套视觉语言
-- 本地 WAV 由 `tools/generate-sounds.ps1` 生成，可离线播放
+- 运行时使用本地 MP3，可离线播放；WAV 源文件由 `tools/generate-sounds.ps1` 生成，不进入上传包。
+
+## 2026-09-06 更新：导航优化与上传包瘦身
+
+对应代码提交：[`098a8c9`](https://github.com/oraclehhh/Sleepwell/commit/098a8c98319b80f76f6736e1e04a872a971376fc)。以下记录以该提交和本次验证结果为准；后文蒲公英复盘保留此前阶段的历史证据。
+
+### 顶部控件与底部导航
+
+修改位于 `pages/breathe/index.wxml`、`pages/breathe/index.wxss`：
+
+- 顶部控件改为横向 flex 分组，退出和设置位于左组，关灯位于右组；退出图标采用真实线条节点，关灯文字保持横向、不换行。
+- 底部三个入口保持“身体、呼吸世界、记录”的文案及原有点击绑定；呼吸世界保留长按切换场景。
+- 三个导航图标统一使用 `48rpx` 方形占位盒和约 `2rpx` 线宽，以真实 WXML 节点构成人体肩颈、四向扩散、文档图形。底部不再使用动态 `currentWorld.glyph`，场景选择器仍保留原来的 glyph。
+- 未选中图标使用 `rgba(255,255,255,.52)`；选中项通过 `is-selected`、暖金色 `#e7d2aa` 和真实 `nav-active-indicator` 节点表示，不依赖点击焦点或放大图标。
+- 三个导航项采用等宽 flex，最小高度 `112rpx`，图标与文字间距 `8rpx`；保留 `safe-bottom` 和底部安全区内边距。
+- 导航上方的小点及数字对应 `cycle-dots`、`cycle-count`，属于呼吸轮次业务内容，未删除；`stop-breath` 也保留。
+
+此提交没有修改呼吸状态机、计时与触摸 JavaScript、蒲公英动画代码、呼吸球代码、设置或音频逻辑。导航的实际点击区域、长按、底部安全区和轮次指示间距仍需 Skyline 真机回归；不能仅凭 rpx 数值或测试通过声称所有设备验收通过。
+
+### 上传包超限修复
+
+2026-09-06 上传曾报错 `80051: source size 12517KB exceed max limit 2MB`。本地按旧忽略规则估算约 `12534KiB`，与错误提示接近。主要体积来自未排除的检查截图、多套历史蒲公英素材，以及实际使用的较大 PNG。
+
+`project.config.json` 的 `packOptions.ignore` 新增排除 `.git`、`.worktrees`、`assets/dandelion/checks/`、`assets/dandelion/build_layers.py`，以及该目录中的 `photo-full.png`、`photo-loosened.png`、`photo-sparse.png`、`photo-sparse-v2.png`。这些文件仍保留在本地或历史仓库中，只从微信上传包中排除。原有 `Fig`、文档、测试、工具及 WAV 排除规则保留。
+
+实际使用的三张 crown、`stem-static.png`、`seed.png`、人体剪影和五个 MP3 均保留在上传资源中。四张大图进行了轻微有损 RGB 色阶压缩，文件尺寸如下（单位为字节）：
+
+| 素材 | 压缩前 | 压缩后 | 画布尺寸 |
+| --- | ---: | ---: | --- |
+| `assets/dandelion/crown-full.png` | 523662 | 358089 | 660 × 825 |
+| `assets/dandelion/crown-loosened.png` | 522486 | 357100 | 660 × 825 |
+| `assets/dandelion/crown-sparse.png` | 511039 | 344128 | 660 × 825 |
+| `assets/body-silhouette-v2.png` | 667007 | 295466 | 887 × 1774 |
+
+压缩将 RGB 各通道量化为 32 级后仍保存为 RGBA PNG；完全透明像素的 RGB 清零。可见像素每个颜色通道最大误差为 `4/255`，alpha 通道逐像素不变，画布尺寸和定位基准不变。白色、红色及深墨绿色背景的本地压缩前后对比未见明显变化；这不构成新的 Skyline 动画验证。
+
+修改后按排除规则扫描的本地源文件总量为 `1805849` 字节，约 `1.722MiB`，距 `2MiB` 约剩 `284.5KiB`。这是本地估算，编译后的实际包体以微信开发者工具为准。用户随后反馈上传成功；本次没有另存实际上传包体统计。
+
+### AppID 与验证记录
+
+- `project.config.json` 已从 `touristappid` 改为正式 AppID `wx9fe54c8fa871a2de`。开发者工具项目详情和微信公众平台后台应使用同一个 AppID。
+- AppID 是应用标识；代码上传私钥属于凭据，未写入配置、README 或 Git，也不进入小程序包。
+- 提交前执行 `node --test tests/*.test.js`：23 项通过，0 项失败。
+- `node --check pages/breathe/index.js`、`node --check components/world-visual/index.js` 和 `git diff --check` 均通过。
+- 已核对运行时静态图片引用和动态音频对应的五个 MP3，文件存在且未被打包规则排除。
+- 导航代码已实现，Skyline 画面未验证。此前 CLI 曾成功打开项目和启用自动化，但游客 AppID 的自动预览失败，未获得本次导航修改后的新截图。后文历史截图不能替代本次验证。
+- 上传成功不等于审核通过或发布上线。发布前仍需在正式 AppID 下真机检查导航点击、长按切换、各阶段画面、音频和记录入口，并在公众平台完成审核与发布。
 
 ## 蒲公英呼吸动效实现与故障复盘
 
-本节是截至当前工作区的事实检查点。结论只依据当前组件代码、当前素材的 alpha 检查、Git 历史、自动化测试和已保存的微信开发者工具 Skyline 截图。历史现象来自本线程中的修改记录；没有截图或工具证据的项目不会写成“画面已验证”。
+本节保留提交 `f5c9cd6` 时的阶段性复盘；其中“当前”“本次”和截图结论均指该历史检查点，不代表后续导航或图片压缩版本已完成 Skyline 验收。结论依据当时组件代码、素材 alpha 检查、Git 历史、自动化测试和本地保存的微信开发者工具 Skyline 截图。历史现象来自本线程中的修改记录；没有截图或工具证据的项目不会写成“画面已验证”。
 
 ### 1. 设计目标
 
@@ -403,8 +449,8 @@ D:\SleepWell
 
 1. 打开微信开发者工具，选择「导入项目」。
 2. 项目目录选择 `D:\SleepWell`。
-3. 仓库中的 `project.config.json` 固定使用 `touristappid`，避免公开真实 AppID。
-4. 需要真机调试、上传或发布时，只在本机把 `appid` 替换为你的小程序 AppID，提交前恢复为 `touristappid`。
+3. 仓库中的 `project.config.json` 使用正式 AppID `wx9fe54c8fa871a2de`；确认开发者工具项目详情与对应微信公众平台账号一致。
+4. 调试和上传需登录具备该小程序相应权限的微信账号。维护本项目时无需恢复为 `touristappid`；复用为其他小程序时请改为自己的 AppID。上传私钥不放进项目目录或 Git。
 5. 编译后首页应直接显示呼吸空间，无需额外点击开始。
 
 本项目不需要执行安装命令，也不需要启动本地服务器。
