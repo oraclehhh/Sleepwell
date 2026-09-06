@@ -2,6 +2,8 @@
   "description": "呼吸空间 - 轻量放松微信小程序",
   "packOptions": {
     "ignore": [
+      { "type": "folder", "value": ".git" },
+      { "type": "folder", "value": ".worktrees" },
       { "type": "folder", "value": "Fig" },
       { "type": "folder", "value": "docs" },
       { "type": "folder", "value": "tests" },
@@ -10,6 +12,12 @@
       { "type": "file", "value": "assets/dandelion-v2.png" },
       { "type": "file", "value": "assets/dandelion.svg" },
       { "type": "file", "value": "assets/body-silhouette.png" },
+      { "type": "folder", "value": "assets/dandelion/checks" },
+      { "type": "file", "value": "assets/dandelion/build_layers.py" },
+      { "type": "file", "value": "assets/dandelion/photo-full.png" },
+      { "type": "file", "value": "assets/dandelion/photo-loosened.png" },
+      { "type": "file", "value": "assets/dandelion/photo-sparse.png" },
+      { "type": "file", "value": "assets/dandelion/photo-sparse-v2.png" },
       { "type": "suffix", "value": ".wav" }
     ],
     "include": []
@@ -43,7 +51,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "3.5.6",
-  "appid": "touristappid",
+  "appid": "wx9fe54c8fa871a2de",
   "projectname": "breathing-space",
   "condition": {},
   "simulatorPluginLibVersion": {},

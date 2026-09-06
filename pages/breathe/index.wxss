@@ -21,10 +21,50 @@
   color: var(--text-faint);
 }
 
-.breathe-page .topbar { display: block; }
-.breathe-page .topbar .icon-button--exit { position: absolute; left: 32rpx; bottom: 8px; }
-.breathe-page .topbar .icon-button--wide { position: absolute; left: 50%; bottom: 8px; width: 128rpx; min-width: 128rpx; margin-left: 0; transform: translateX(-50%); }
-.breathe-page .topbar .topbar-settings { position: absolute; left: 128rpx; bottom: 8px; width: 80rpx; min-width: 80rpx; margin-left: 0; }
+.breathe-page .topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding-left: 32rpx;
+}
+
+.topbar-leading,
+.topbar-trailing {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-leading { gap: 12rpx; }
+.topbar-trailing { flex: 0 0 auto; }
+
+.breathe-page .topbar .icon-button--exit,
+.breathe-page .topbar .topbar-settings,
+.breathe-page .topbar .icon-button--wide {
+  position: static;
+  flex: 0 0 auto;
+  width: 88rpx;
+  min-width: 88rpx;
+  height: 88rpx;
+  margin: 0;
+  transform: none;
+}
+
+.breathe-page .topbar .icon-button--exit {
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.breathe-page .topbar .icon-button--wide {
+  width: 148rpx;
+  min-width: 148rpx;
+  padding: 0 18rpx;
+  gap: 8rpx;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.breathe-page .topbar .icon-button--wide text { white-space: nowrap; }
 
 .sliders-icon {
   display: flex;
@@ -32,6 +72,11 @@
   gap: 8rpx;
   width: 34rpx;
 }
+
+.exit-icon { position: relative; width: 30rpx; height: 30rpx; flex: 0 0 30rpx; }
+.exit-icon__line { position: absolute; left: 14rpx; top: 1rpx; width: 2rpx; height: 28rpx; border-radius: 1rpx; background: currentColor; }
+.exit-icon__line--a { transform: rotate(45deg); }
+.exit-icon__line--b { transform: rotate(-45deg); }
 
 .sliders-icon .slider-line {
   display: block;
@@ -137,46 +182,140 @@
   transform: translateX(-50%);
 }
 
+.cycle-dots {
+  min-width: 112rpx;
+  justify-content: center;
+  padding: 8rpx 14rpx;
+}
+
 .cycle-dot { width: 7rpx; height: 7rpx; border: 1rpx solid rgba(255, 255, 255, 0.28); border-radius: 50%; transition: box-shadow 700ms ease, transform 700ms ease; }
 .cycle-dot.is-filled { border-color: var(--world-accent); background: var(--world-accent); box-shadow: 0 0 14rpx var(--world-accent); }
 .cycle-count { margin-left: 5rpx; color: var(--text-faint); font-size: 20rpx; }
 .stop-breath { position: absolute; z-index: 40; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 190rpx); display: flex; align-items: center; justify-content: center; width: 112rpx; height: 64rpx; border: 1rpx solid rgba(229,202,157,.2); border-radius: 32rpx; transform: translateX(-50%); color: var(--text-soft); background: rgba(4,20,21,.72); font-size: 23rpx; transition: opacity 400ms ease; }
 
-.bottom-nav {
+.breathe-page .bottom-nav {
   position: absolute;
   z-index: 18;
   right: 0;
   bottom: 0;
   left: 0;
   display: flex;
-  align-items: end;
-  min-height: 132rpx;
-  padding-right: 54rpx;
-  padding-left: 54rpx;
+  align-items: stretch;
+  min-height: 164rpx;
+  padding: 12rpx 32rpx calc(env(safe-area-inset-bottom) + 24rpx);
   background: linear-gradient(180deg, transparent, rgba(3, 15, 16, 0.74) 46%);
 }
 
 .nav-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10rpx;
-  min-height: 108rpx;
+  justify-content: center;
+  gap: 8rpx;
+  min-width: 0;
+  min-height: 112rpx;
+  padding: 8rpx 4rpx 4rpx;
   color: var(--text-faint);
   font-size: 21rpx;
-  flex: 1;
+  line-height: 1.2;
+  flex: 1 1 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
 }
 
-.nav-item--world { color: var(--text-soft); }
-.nav-icon { width: 34rpx; height: 34rpx; }
-.body-nav-icon { border: 1rpx solid currentColor; border-radius: 48% 48% 44% 44%; }
-.world-button { display: flex; align-items: center; justify-content: center; width: 72rpx; height: 72rpx; border: 1rpx solid rgba(255, 255, 255, 0.15); border-radius: 50%; color: var(--world-accent); background: rgba(255, 255, 255, 0.055); box-shadow: 0 0 34rpx rgba(206, 227, 204, 0.09); font-size: 34rpx; }
-.record-nav-icon { display: flex; align-items: flex-end; justify-content: center; gap: 5rpx; }
-.record-nav-icon .record-line { width: 3rpx; background: currentColor; }
-.record-nav-icon .record-line:nth-child(1) { height: 16rpx; }
-.record-nav-icon .record-line:nth-child(2) { height: 30rpx; }
-.record-nav-icon .record-line:nth-child(3) { height: 23rpx; }
+.nav-item--world { color: var(--text-faint); }
+.nav-item--world.is-selected { color: #e7d2aa; }
+.nav-active-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 48rpx;
+  height: 2rpx;
+  border-radius: 2rpx;
+  transform: translateX(-50%);
+  background: #e7d2aa;
+  box-shadow: 0 0 14rpx rgba(226, 194, 131, 0.34);
+}
+.nav-item:not(.nav-item--world) .nav-active-indicator { display: none; }
+.nav-icon {
+  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+  flex: 0 0 48rpx;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.nav-item--world.is-selected .nav-icon { color: #e7d2aa; filter: drop-shadow(0 0 7rpx rgba(231, 210, 170, 0.22)); }
+
+.body-nav-icon__head {
+  position: absolute;
+  left: 18rpx;
+  top: 5rpx;
+  width: 12rpx;
+  height: 12rpx;
+  border: 2rpx solid currentColor;
+  border-radius: 50%;
+}
+
+.body-nav-icon__shoulders {
+  position: absolute;
+  left: 7rpx;
+  bottom: 5rpx;
+  width: 34rpx;
+  height: 19rpx;
+  border: 2rpx solid currentColor;
+  border-bottom: 0;
+  border-radius: 18rpx 18rpx 0 0;
+}
+
+.world-nav-icon__core {
+  position: absolute;
+  left: 20rpx;
+  top: 20rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.world-nav-icon__ray {
+  position: absolute;
+  left: 23rpx;
+  top: 4rpx;
+  width: 2rpx;
+  height: 14rpx;
+  border-radius: 2rpx;
+  background: currentColor;
+  transform-origin: 1rpx 20rpx;
+}
+
+.world-nav-icon__ray--right { transform: rotate(90deg); }
+.world-nav-icon__ray--bottom { transform: rotate(180deg); }
+.world-nav-icon__ray--left { transform: rotate(270deg); }
+
+.record-nav-icon__sheet {
+  position: absolute;
+  left: 10rpx;
+  top: 5rpx;
+  width: 28rpx;
+  height: 36rpx;
+  border: 2rpx solid currentColor;
+  border-radius: 3rpx;
+}
+
+.record-nav-icon__line {
+  position: absolute;
+  left: 16rpx;
+  width: 16rpx;
+  height: 2rpx;
+  border-radius: 2rpx;
+  background: currentColor;
+}
+
+.record-nav-icon__line--one { top: 18rpx; }
+.record-nav-icon__line--two { top: 26rpx; }
 
 .body-nudge {
   position: fixed;
