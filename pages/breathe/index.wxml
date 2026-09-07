@@ -20,7 +20,7 @@
     <text wx:if="{{firstHint}}" class="first-hint">按住开始，4秒后可以松开</text>
     <text class="main-prompt">{{mainPrompt}}</text>
     <text class="sub-prompt">{{subPrompt}}</text>
-    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{phaseLabel}} {{countdown}}</text>
+    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{countdown}} 秒</text>
   </view>
 
   <view class="completion-mask {{showCompletion ? 'is-visible' : ''}}" catchtap="finishQuietly">

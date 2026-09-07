@@ -76,7 +76,7 @@ Page({
     const elapsed = this.formatElapsed(this.machine.durationMs);
     const view = getBreathView(this.machine, Date.now());
     const updates = { phase: this.machine.phase, cycles: this.machine.cycles, elapsed, countdown: view.countdown, phaseLabel: view.phaseLabel };
-    if (this.machine.phase === PHASES.INHALE) Object.assign(updates, { prompt: '深呼吸', subPrompt: '感受腹部向外扩张', showCare: false });
+    if (this.machine.phase === PHASES.INHALE) Object.assign(updates, { prompt: '缓缓吸气', subPrompt: '感受腹部向外扩张', showCare: false });
     if (this.machine.phase === PHASES.HOLD) Object.assign(updates, { prompt: '停留', subPrompt: '让这一口气停留片刻', showCare: false });
     if (this.machine.phase === PHASES.HOLD && this.machine.readyToRelease) Object.assign(updates, { prompt: '准备好，就慢慢松开', subPrompt: '松开，开始呼气', showCare: false });
     if (this.machine.phase === PHASES.EXHALE) Object.assign(updates, { prompt: '呼气', subPrompt: '感受腹部慢慢回落', showCare: true });

@@ -20,7 +20,7 @@
     <text class="part-main-prompt">{{prompt}}</text>
     <text class="part-sub-prompt">{{subPrompt}}</text>
     <text wx:if="{{showCare}}" class="care-message">{{careMessage}}</text>
-    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{phaseLabel}} {{countdown}}</text>
+    <text wx:if="{{phase !== 'idle' && phase !== 'completed'}}" class="phase-count">{{countdown}} 秒</text>
   </view>
 
   <view class="part-stats safe-bottom">

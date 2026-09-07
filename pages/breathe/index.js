@@ -63,6 +63,21 @@ Page({
   onShow() {
     this.setData({ nav: getNavigationMetrics() });
     this.syncSettings();
+    wx.showShareMenu({ menus: ['shareAppMessage', 'shareTimeline'] });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '呼吸空间（SleepWell）',
+      path: '/pages/breathe/index'
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: '呼吸空间（SleepWell）',
+      query: ''
+    };
   },
 
   onHide() {
@@ -101,7 +116,7 @@ Page({
     const phase = result.state.phase;
     const view = getBreathView(result.state, Date.now());
     const updates = { phase, cycles: result.state.cycles, countdown: view.countdown, phaseLabel: view.phaseLabel };
-    if (phase === PHASES.INHALE) Object.assign(updates, { mainPrompt: '深呼吸', subPrompt: '感受腹部向外扩张', firstHint: false });
+    if (phase === PHASES.INHALE) Object.assign(updates, { mainPrompt: '缓缓吸气', subPrompt: '感受腹部向外扩张', firstHint: false });
     if (phase === PHASES.HOLD) Object.assign(updates, { mainPrompt: '停留', subPrompt: '让这一口气停留片刻', firstHint: false });
     if (phase === PHASES.HOLD && result.state.readyToRelease) Object.assign(updates, { mainPrompt: '准备好，就慢慢松开', subPrompt: '松开，开始呼气' });
     if (phase === PHASES.EXHALE) Object.assign(updates, { mainPrompt: '呼气', subPrompt: '感受腹部慢慢回落', firstHint: false });
